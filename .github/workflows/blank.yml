@@ -29,7 +29,7 @@ jobs:
       - name: Run SonarQube Analysis (Skipping Tests)
         run: |
           cd sonarqube-master
-          ./gradlew build -x test -Dsonar.log.level=INFO --warning-mode=all | tee build.log
+          ./gradlew build -Dsonar.log.level=INFO --warning-mode=all | tee build.log
 
       - name: Compress Build Log
         run: gzip -9 sonarqube-master/build.log
