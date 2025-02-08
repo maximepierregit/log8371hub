@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          apt-get update && apt-get install -y git
+          apt-get update && apt-get install -y git && apt-get install -y git unzip
 
       # - name: Fix File Permissions
       #   run: |
