@@ -22,11 +22,6 @@ jobs:
         run: |
           apt-get update && apt-get install -y git && apt-get install -y git unzip
 
-      # - name: Fix File Permissions
-      #   run: |
-      #     chmod -R 777 sonarqube-master
-      #     chown -R $(whoami) sonarqube-master
-
       - name: Compile & Test SonaQube
         run: |
           cd sonarqube-master
@@ -46,4 +41,5 @@ jobs:
         run: |
           cd sonarqube-master/sonar-application/build/distributions/
           unzip sonar-application-25.2-SNAPSHOT.zip
+          cd sonarqube-25.2-SNAPSHOT
           ./bin/linux-x86-64/sonar.sh start
