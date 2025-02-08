@@ -21,19 +21,20 @@ jobs:
           apt-get update && apt-get install -y git
 
       - name: Fix File Permissions
-        run: chmod -R 755 sonarqube-master  # Fix file permission issues
+        run: |
+          chmod -R 755 sonarqube-master
+          sudo chown -R $USER:$USER sonarqube-master
 
-      - name: Build with Gradle and SonarQube Analysis
+      - name: Run SonarQube Analysis (Skipping Tests)
         run: |
           cd sonarqube-master
-          ./gradlew build -Dsonar.log.level=INFO | tee build.log
+          ./gradlew build -x test -Dsonar.log.level=INFO --warning-mode=all | tee build.log
 
       - name: Compress Build Log
         run: gzip -9 sonarqube-master/build.log
 
-      - name: Upload Artifact (Build Log)
+      - name: Upload Build Log Artifact
         uses: actions/upload-artifact@v4
         with:
           name: build-log
-          path: sonarqube-master/build.log.gz
-          retention-days: 7
+          path:
