@@ -22,9 +22,8 @@ jobs:
 
       - name: Fix File Permissions
         run: |
-          chmod -R 755 sonarqube-master
+          chmod -R 777 sonarqube-master
           chown -R $(whoami) sonarqube-master
-
 
       - name: Run SonarQube Analysis (Skipping Tests)
         run: |
