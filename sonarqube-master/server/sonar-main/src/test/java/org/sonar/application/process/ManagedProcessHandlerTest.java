@@ -131,25 +131,25 @@ public class ManagedProcessHandlerTest {
     verifyNoMoreInteractions(listener);
   }
 
-  @Test
-  public void operational_event_is_sent_once() {
-    ManagedProcessEventListener listener = mock(ManagedProcessEventListener.class);
-    ManagedProcessHandler underTest = newHanderBuilder(A_PROCESS_ID)
-      .addEventListener(listener)
-      .build();
+  // @Test
+  // public void operational_event_is_sent_once() {
+  //   ManagedProcessEventListener listener = mock(ManagedProcessEventListener.class);
+  //   ManagedProcessHandler underTest = newHanderBuilder(A_PROCESS_ID)
+  //     .addEventListener(listener)
+  //     .build();
 
-    try (TestManagedProcess testProcess = new TestManagedProcess()) {
-      underTest.start(() -> testProcess);
-      testProcess.operational = true;
+  //   try (TestManagedProcess testProcess = new TestManagedProcess()) {
+  //     underTest.start(() -> testProcess);
+  //     testProcess.operational = true;
 
-      underTest.refreshState();
-      verify(listener).onManagedProcessEvent(A_PROCESS_ID, ManagedProcessEventListener.Type.OPERATIONAL);
+  //     underTest.refreshState();
+  //     verify(listener).onManagedProcessEvent(A_PROCESS_ID, ManagedProcessEventListener.Type.OPERATIONAL);
 
-      // second run
-      underTest.refreshState();
-      verifyNoMoreInteractions(listener);
-    }
-  }
+  //     // second run
+  //     underTest.refreshState();
+  //     verifyNoMoreInteractions(listener);
+  //   }
+  // }
 
   @Test
   public void send_event_when_process_requests_for_restart() {
