@@ -22,12 +22,12 @@ jobs:
         run: |
           apt-get update && apt-get install -y git
 
-      - name: Fix File Permissions
-        run: |
-          chmod -R 777 sonarqube-master
-          chown -R $(whoami) sonarqube-master
+      # - name: Fix File Permissions
+      #   run: |
+      #     chmod -R 777 sonarqube-master
+      #     chown -R $(whoami) sonarqube-master
 
-      - name: Run SonarQube Analysis (Skipping Tests)
+      - name: Compile & Test SonaQube
         run: |
           cd sonarqube-master
           ./gradlew build -Dsonar.log.level=INFO --warning-mode=all | tee build.log
@@ -41,3 +41,9 @@ jobs:
           name: build-log
           path: sonarqube-master/build.log.gz  # Ensure this file exists
           retention-days: 7
+
+      - name: Unzip app and Launch
+        run: |
+          cd sonarqube-master/sonar-application/build/distributions/
+          unzip sonar-application-25.2-SNAPSHOT.zip
+          ./bin/linux-x86-64/sonar.sh start
